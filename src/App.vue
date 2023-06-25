@@ -10,7 +10,7 @@ import ToolBar from './components/ToolBar.vue'
     <tool-bar></tool-bar>
 
     <div>
-      <transition name="slide">
+      <transition :name="$route.meta.transition || 'slide'">
         <router-view v-slot="{ Component }" :key="$route.path">
           <component :is="Component" class="component-container"></component>
         </router-view>
@@ -22,13 +22,19 @@ import ToolBar from './components/ToolBar.vue'
 <style scoped>
 .holder {
   width: 100%;
+  height: 100%;
 }
 
-.slide-enter-active,
 .slide-leave-active {
   position: absolute;
-  transition: all 1s ease-out;
-  width: 100%;
+  transition: all 0.5s ease-out;
+  width: 50%;
+}
+
+.slide-enter-active {
+  position: absolute;
+  transition: all 1.5s ease-out;
+  width: 50%;
 }
 
 .slide-enter-from {
@@ -37,5 +43,17 @@ import ToolBar from './components/ToolBar.vue'
 
 .slide-leave-to {
   transform: translateX(-100%);
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  position: absolute;
+  transition: all 0.5s ease-out;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
