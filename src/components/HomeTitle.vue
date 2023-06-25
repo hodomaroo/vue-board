@@ -1,5 +1,5 @@
 <template>
-  <router-link to="/" class="page-title">Vue Board</router-link>
+  <router-link to="/home" class="page-title">Vue Board</router-link>
   <hr class="header-div-line" />
 </template>
 

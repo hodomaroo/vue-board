@@ -11,7 +11,7 @@
           <router-link to="/signup" class="sign-up">회원가입</router-link>
         </div>
         <div class="button-holder">
-          <div @click="githubLogin" class="github-sign-in">Signin With GitHub</div>
+          <div class="github-sign-in" @click="github_login">Signin With GitHub</div>
         </div>
       </div>
     </form>
@@ -20,16 +20,13 @@
 
 <script>
 import axios from 'axios'
-import qs from 'qs'
-
+const OAUTH_URL = `${import.meta.env.VITE_GITHUB_BASE_URL}/${
+  import.meta.env.VITE_OAUTH_ENDPOINT
+}?client_id=${import.meta.env.VITE_GITHUB_ID}`
 export default {
-  data() {},
   methods: {
-    githubLogin() {
-      window.location.href = `https://github.com/login/oauth/authorize?client_id=${
-        import.meta.env.VITE_GITHUB_ID
-      }`
-      console.log(this.$route.code)
+    github_login() {
+      window.location.assign(OAUTH_URL)
     }
   }
 }

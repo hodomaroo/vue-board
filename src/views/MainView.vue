@@ -1,25 +1,19 @@
 <template>
-  <div>
-    <div v-if="this.userInfo">{{ this.userInfo.data.access_token }}</div>
-    <div v-if="this.userInfo">{{ this.userInfo.data.token_type }}</div>
-  </div>
+  <h1>인증 진행 중..!</h1>
 </template>
 
 <script>
 import axios from 'axios'
-import { mapState, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
-  mounted() {
+  async created() {
     const code = this.$route.query.code
     this.auth_user(code)
   },
 
   methods: {
     ...mapActions(['auth_user'])
-  },
-  computed: {
-    ...mapState(['userInfo'])
   }
 }
 </script>
