@@ -32,6 +32,7 @@ const router = createRouter({
       name: 'signup',
       component: SignupView,
       meta: {
+        authFree: true,
         transition: 'fade'
       }
     },
@@ -49,14 +50,13 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  console.log(store.state.auth)
-  if (store.state.auth.isAuthenticated) {
+  if (store.state.auth?.user_token != null) {
     if (to.meta?.authFree) {
       next({ name: from ? from.name : 'home' })
     } else {
       next()
     }
-  } else if (!store.state.auth.isAuthenticated && to.meta.authFree) {
+  } else if (store.state.auth.user_token == null && to.meta.authFree) {
     next()
   } else {
     next({ name: 'login' })

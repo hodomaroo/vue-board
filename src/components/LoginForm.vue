@@ -1,11 +1,14 @@
 <template>
   <div class="form-holder">
     <div class="login-title">Sign in</div>
-    <form>
-      <input type="text" placeholder="id" id="id" />
+    <form @submit.prevent="call_login({ user_id, password })">
+      <input type="text" placeholder="id" id="id" v-model="user_id" />
       <br />
-      <input type="password" placeholder="password" id="password" />
+      <input type="password" placeholder="password" id="password" v-model="password" />
       <div class="holder">
+        <div class="msg-holder">
+          <div v-if="showWrongPasswordText" class="msg">Wrong ID or Password!</div>
+        </div>
         <div class="button-holder">
           <input type="submit" value="로그인" class="submit" />
           <router-link to="/signup" class="sign-up">회원가입</router-link>
@@ -19,14 +22,27 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import axios from 'axios'
 const OAUTH_URL = `${import.meta.env.VITE_GITHUB_BASE_URL}/${
   import.meta.env.VITE_OAUTH_ENDPOINT
 }?client_id=${import.meta.env.VITE_GITHUB_ID}`
 export default {
+  data() {
+    return {
+      showWrongPasswordText: false
+    }
+  },
   methods: {
     github_login() {
       window.location.assign(OAUTH_URL)
+    },
+    ...mapActions(['login']),
+    async call_login(params) {
+      const result = await this.login(params)
+      if (result == false) {
+        this.showWrongPasswordText = true
+      }
     }
   }
 }
@@ -69,7 +85,6 @@ input::placeholder {
 
 #password {
   margin-top: 5px;
-  margin-bottom: 15px;
 }
 
 .button-holder > *,
@@ -106,5 +121,11 @@ input::placeholder {
   background-color: white;
   color: black;
   border: 3px black solid;
+}
+
+.msg-holder {
+  height: 40px;
+  line-height: 40px;
+  color: pink;
 }
 </style>

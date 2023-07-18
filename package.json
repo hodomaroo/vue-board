@@ -11,6 +11,9 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@tiptap/pm": "^2.0.4",
+    "@tiptap/starter-kit": "^2.0.4",
+    "@tiptap/vue-3": "^2.0.4",
     "axios": "^1.4.0",
     "connect-history-api-fallback": "^2.0.0",
     "cors": "^2.8.5",

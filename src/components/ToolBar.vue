@@ -3,10 +3,10 @@
     <router-link to="/items">ContentsBoard</router-link>
     <router-link to="/home">DashBoard</router-link>
     <router-link to="/">VOC</router-link>
-    <button v-if="auth.isAuthenticated" class="btn user-info" @click="this.showUserInfo = true">
+    <button v-if="auth.user_token" class="btn user-info" @click="this.showUserInfo = true">
       내 정보
     </button>
-    <button v-if="auth.isAuthenticated" class="btn log-out" @click="this.logout">로그아웃</button>
+    <button v-if="auth.user_token" class="btn log-out" @click="this.logout">로그아웃</button>
   </div>
 
   <transition name="modal">
